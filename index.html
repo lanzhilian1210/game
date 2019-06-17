@@ -28,19 +28,25 @@
             <div class="stop_btn">停止</div>
             
         </div>
-        <div class="tab">
-            <div class="tab1">
-                <img src="./images/05-liuyanshangqiang.png" alt="" class="tab_img">
-                <div class="tab_msg">留言上墙</div>
-            </div> 
-            <div class="tab2">
-                <img src="./images/05-lchoujiang.png" alt="" class="tab_img">
-                <div class="tab_msg active">现场抽奖</div>
-            </div> 
-            <div class="tab3">
-                <img src="./images/01-erweima.png" alt="" class="tab_img">
-                <div class="tab_msg">二维码</div>
-            </div> 
+        <div class="foot">
+            <div class="foot_bg"></div>
+            <div class="tab">
+                <div class="tab1">
+                    <img src="./images/05-liuyanshangqiang.png" alt="" class="tab_img">
+                    <div class="tab_msg">留言上墙</div>
+                </div> 
+                <div class="tab2">
+                    <img src="./images/05-lchoujiang.png" alt="" class="tab_img">
+                    <div class="tab_msg active">现场抽奖</div>
+                </div> 
+                <div class="tab3">
+                    <img src="./images/01-erweima.png" alt="" class="tab_img">
+                    <div class="tab_msg">二维码</div>
+                </div> 
+                <div class="quanping" onclick="kaishi()">
+                    <img src="./images/01-quanping.png" alt="">
+                </div>
+            </div>
         </div>
         <!-- <p class="Title">中奖名单显示</p>
         <ul class="prizeList">
@@ -50,6 +56,7 @@
         <div class="stop" data-id="0">停止</div> -->
     </div>
     <script src="./js/jquery-3.3.1.min.js"></script>
+    <script src="./js/quanping.js"></script>
     <script type="text/javascript">
     //从一个给定的数组arr中,随机返回num个不重复项
             function getArrayItems(arr, num) {

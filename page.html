@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+<body>
+    <div class="page">
+        <div class="title">
+            <img src="./images/01-liuyanqiang.png" alt="">
+        </div>
+        <div class="left_btn"></div>
+        <div class="right_btn"></div>
+        <ul class="msg_cont">
+            
+        </ul>
+        <!-- mask -->
+        <div class="popMask" style="display: none;"></div>
+        <div class="mask" style="display: none;">
+            <div class="pop_yuan">
+                <img src="./images/03-touxiang.png" alt="">
+            </div>
+            <div class="pop_name">微信昵称</div>
+            <div class="pop_text">文字描述文字描述文字描述文字描述文字描述文字描述文文字描述文字描述文字描述文字描述文字描述文字描述文文字描述文字描述文字描述文字描述文字描述文字 描述文文字描述文字描述文字描述文字描述文字描述文字描述文文字描述文字描述文字描述文字描述文字描述
+                    文字描述文文字描述文字描述文字描述文字描述文字描 描述文文字描述文字描述文字描述文字描述文字描述文字描述文文字描述文字描述文字描述文字描述文字描述文字描述文文字描述文字描述文字描述文字描述文字描
+            </div>
+            <img src="./images/03-guanbi.png" alt="" class="close">
+        </div>
+        <div class="tab">
+            <div class="tab1">
+                <img src="./images/01-liuyanshangqiang.png" alt="" class="tab_img">
+                <div class="tab_msg active">留言上墙</div>
+            </div> 
+            <div class="tab2">
+                <img src="./images/01-lchoujiang.png" alt="" class="tab_img">
+                <div class="tab_msg">现场抽奖</div>
+            </div> 
+            <div class="tab3">
+                <img src="./images/01-erweima.png" alt="" class="tab_img">
+                <div class="tab_msg">二维码</div>
+            </div> 
+        </div>
+    </div>
+    <script src="./js/jquery-3.3.1.min.js"></script>
+    <script src="./js/data.js"></script>
+    <script>
+        var n = 0;
+        getPage();
+        function getPage() {
+            var html = '';
+            var newData = data.slice(n*3,(n+1)*3);
+            newData.forEach(function(e,i){
+            html +='<li class="msg_lis">'+
+                        '<div class="lis_bg"></div>'+
+                        '<div class="yuan">'+
+                            '<img src="'+e.url+'">'+
+                        '</div>'+
+                        '<div class="wx_name">'+e.name+'</div>'+
+                        '<div class="wx_cont">'+e.dis+'</div>'+
+                    '</li>';
+        });
+        $('.msg_cont').html(html);
+        }
+        // 点击左，右
+        $('.left_btn').click(function(){
+            if(n == 0) {
+                return;
+            } else {
+                n --;
+            }
+           
+            getPage();
+        });
+        $('.right_btn').click(function(){
+            var max_n = Math.floor(data.length/3) ;
+            if(n >= max_n) {
+                n = max_n;
+                return;
+            } else {
+                n ++;
+            }
+            getPage();
+        });
+        // 点击每一条
+        $(".msg_cont").on('click','li',function(){  
+            $('.popMask').css('display','block');
+            $('.mask').css('display','block');
+        });
+        $('.close').click(function () {
+            $('.popMask').css('display','none');
+            $('.mask').css('display','none');
+        }); 
+        $('.popMask').click(function () {
+            $('.popMask').css('display','none');
+            $('.mask').css('display','none');
+        }); 
+
+                // tab
+        $('.tab2').click(function () {
+                window.location.href = './index.html';
+          })
+          var onOff3 = true;
+        $('.tab3').click(function () {
+            if(onOff3) {
+                $('.tab3 .tab_msg').addClass('active');
+                $('.tab3 .tab_img').attr('src','./images/01-liuyanshangqiang.png');
+            } else {
+                $('.tab3 .tab_msg').removeClass('active');
+                $('.tab3 .tab_img').attr('src','./images/05-liuyanshangqiang.png');
+            }
+            onOff3 = !onOff3;
+          })
+    </script>
+</body>
+</html>

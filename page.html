@@ -57,62 +57,64 @@
     <script src="./js/page.js"></script>
     <script src="./js/data.js"></script>
     <script>
-        var n = 0;
+        var page = 1;
+        var max_page = 1;
         // 获取上墙列表
-        getPage();
+        getPage(page);
         function getPage() {
             var html = '';
             var data2 = {
                 "ActivityGuid": "75db251d-864f-4e05-bab7-0dd5ec749df0",
                 "Comment": "",
                 "IsOnWall": "1",
-                "PageIndex": 1,
-                "PageSize": 20
+                "PageIndex": page,
+                "PageSize": 3
             }
             $.ajax({
                 url:'https://testshengyaapi.onlyk12.com/ActivityComment/GetActivityCommentList',
-                data:data,
+                data:data2,
                 method: "POST",  
                 contentType: 'application/x-www-form-urlencoded;charset=utf-8',
                 success(res) {
-                    console.log(res);
+                    console.log(res.Payload);
+                    // 获取最大页数
+                    max_page = Math.ceil(res.Payload.TotalCount/3);
+                    res.Payload.Values.forEach(function(e,i){
+                    html +='<li class="msg_lis">'+
+                                '<div class="lis_bg"></div>'+
+                                '<div class="yuan">'+
+                                    '<img src="'+e.url+'">'+
+                                '</div>'+
+                                '<div class="wx_name">'+e.name+'</div>'+
+                                '<div class="wx_cont">'+e.dis+'</div>'+
+                            '</li>';
+                    });
+                    $('.msg_cont').html(html);
                 },
                 error(err) {
                     console.log(err);
                 }
             });
-            var newData = data.slice(n*3,(n+1)*3);
-            newData.forEach(function(e,i){
-            html +='<li class="msg_lis">'+
-                        '<div class="lis_bg"></div>'+
-                        '<div class="yuan">'+
-                            '<img src="'+e.url+'">'+
-                        '</div>'+
-                        '<div class="wx_name">'+e.name+'</div>'+
-                        '<div class="wx_cont">'+e.dis+'</div>'+
-                    '</li>';
-        });
-        $('.msg_cont').html(html);
         }
         // 点击左，右
         $('.left_btn').click(function(){
-            if(n == 0) {
+            if(page == 1) {
                 return;
             } else {
-                n --;
+                page --;
             }
            
-            getPage();
+            getPage(page);
         });
         $('.right_btn').click(function(){
-            var max_n = Math.floor(data.length/3) ;
-            if(n >= max_n) {
-                n = max_n;
+            
+            if(page >= max_page) {
+                page = max_page;
                 return;
             } else {
-                n ++;
+                page ++;
             }
-            getPage();
+            getPage(page);
         });
         // 点击每一条
         $(".msg_cont").on('click','li',function(){  

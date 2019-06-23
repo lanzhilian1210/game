@@ -48,6 +48,7 @@ margin: 20px 200px 0;
 .yuan img{
     height: 120px;
     width: 120px;
+    border-radius: 50%;
     margin: 10px;
     display: inline-block;
 }
@@ -91,6 +92,9 @@ body,html{
     background: #FFFFFF;
 border-radius: 30px;
 }
+.pageAc{
+    position: fixed;
+}
 .popMask{
     width: 100%;
     height: 100%;
@@ -125,10 +129,9 @@ border-radius: 30px;
     font-family: PingFangSC-Regular;
     font-size: 43px;
     color: #000;
-    height: 450px;
+    height: 300px;
     line-height: 60px;
     letter-spacing: 0;
-    overflow: hidden;
     text-overflow: -o-ellipsis-lastline;
     overflow: auto;
     text-overflow: ellipsis;
@@ -208,7 +211,7 @@ border-radius: 30px;
    bottom: 25px;
    transform: translateX(-50%);
 }
-.stop_btn{
+.stop_btn,.jx_btn{
     width: 399px;
     height: 87px;
     font-family: PingFangSC-Medium;

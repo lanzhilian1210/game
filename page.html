@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="./css/index.css">
 </head>
 <body>
-    <div class="page">
+    <div class="page ">
         <div class="title">
             <img src="./images/01-liuyanqiang.png" alt="">
         </div>
@@ -21,14 +21,8 @@
         <!-- mask -->
         <div class="popMask" style="display: none;"></div>
         <div class="mask" style="display: none;">
-            <div class="pop_yuan">
-                <img src="./images/03-touxiang.png" alt="">
-            </div>
-            <div class="pop_name">微信昵称</div>
-            <div class="pop_text">文字描述文字描述文字描述文字描述文字描述文字描述文文字描述文字描述文字描述文字描述文字描述文字描述文文字描述文字描述文字描述文字描述文字描述文字 描述文文字描述文字描述文字描述文字描述文字描述文字描述文文字描述文字描述文字描述文字描述文字描述
-                    文字描述文文字描述文字描述文字描述文字描述文字描 描述文文字描述文字描述文字描述文字描述文字描述文字描述文文字描述文字描述文字描述文字描述文字描述文字描述文文字描述文字描述文字描述文字描述文字描
-            </div>
-            <img src="./images/03-guanbi.png" alt="" class="close">
+            
+            
         </div>
         <div class="foot">
             <div class="foot_bg"></div>
@@ -54,17 +48,18 @@
     </div>
     <script src="./js/jquery-3.3.1.min.js"></script>
     <script src="./js/quanping.js"></script>
-    <script src="./js/page.js"></script>
     <script src="./js/data.js"></script>
     <script>
         var page = 1;
         var max_page = 1;
+        var list = [];
+        var cont = '';
         // 获取上墙列表
         getPage(page);
         function getPage() {
             var html = '';
-            var data2 = {
-                "ActivityGuid": "75db251d-864f-4e05-bab7-0dd5ec749df0",
+            var data = {
+                "ActivityGuid": "EAF5199C-43DE-4FF9-8199-8DAC010D5FB7",
                 "Comment": "",
                 "IsOnWall": "1",
                 "PageIndex": page,
@@ -72,21 +67,23 @@
             }
             $.ajax({
                 url:'https://testshengyaapi.onlyk12.com/ActivityComment/GetActivityCommentList',
-                data:data2,
+                data:data,
                 method: "POST",  
                 contentType: 'application/x-www-form-urlencoded;charset=utf-8',
                 success(res) {
-                    console.log(res.Payload);
+                    // console.log(res.Payload);
                     // 获取最大页数
                     max_page = Math.ceil(res.Payload.TotalCount/3);
+                    list = res.Payload.Values;
                     res.Payload.Values.forEach(function(e,i){
+                        // console.log(e);
                     html +='<li class="msg_lis">'+
                                 '<div class="lis_bg"></div>'+
                                 '<div class="yuan">'+
-                                    '<img src="'+e.url+'">'+
+                                    '<img src="'+e.Avatar+'">'+
                                 '</div>'+
-                                '<div class="wx_name">'+e.name+'</div>'+
-                                '<div class="wx_cont">'+e.dis+'</div>'+
+                                '<div class="wx_name">'+e.NickName+'</div>'+
+                                '<div class="wx_cont">'+e.Comment+'</div>'+
                             '</li>';
                     });
                     $('.msg_cont').html(html);
@@ -117,15 +114,25 @@
             getPage(page);
         });
         // 点击每一条
-        $(".msg_cont").on('click','li',function(){  
+        $(".msg_cont").on('click','li',function(){ 
+            var content = list[$(this).index()];
             $('.popMask').css('display','block');
             $('.mask').css('display','block');
+            $('.page').addClass('pageAc');
+            cont = `<div class="pop_yuan">
+                <img src="${content.Avatar}" alt="">
+            </div>
+            <div class="pop_name">${content.NickName}</div>
+            <div class="pop_text">${content.Comment}</div><img src="./images/03-guanbi.png" alt="" class="close">`;
+            $('.mask').html(cont);
         });
-        $('.close').click(function () {
+        $('.mask').on('click','.close',function () {
+            $('.page').removeClass('pageAc');
             $('.popMask').css('display','none');
             $('.mask').css('display','none');
         }); 
         $('.popMask').click(function () {
+            $('.page').removeClass('pageAc');
             $('.popMask').css('display','none');
             $('.mask').css('display','none');
         }); 

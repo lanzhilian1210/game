@@ -26,7 +26,7 @@
             </ul>
             <div class="cj_btn">开始抽奖</div>
             <div class="stop_btn">停止</div>
-            
+            <div class="jx_btn">继续</div>
         </div>
         <div class="foot">
             <div class="foot_bg"></div>
@@ -57,8 +57,53 @@
     </div>
     <script src="./js/jquery-3.3.1.min.js"></script>
     <script src="./js/quanping.js"></script>
-    <script src="./js/index.js"></script>
     <script type="text/javascript">
+    getStatus();
+    function getStatus() {
+        var data = {
+                "ActivityGuid": "5CA772D4-E9C3-4A03-B1A0-67883D0FF9E0",
+                "Mobile": "18516565459",
+                "IsEnroll": "1",
+                "IsSignIn": "1",
+                "PageIndex": 1,
+                "PageSize": 20
+            };
+        $.ajax({
+            url:'https://testshengyaapi.onlyk12.com/ActivityEnrollSignIn/GetActivityEnrollSignInList',
+            data:data,
+            method: "POST",  
+            contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+            success(res) {
+                console.log(res);
+                if(res.Result == 200) {
+                    if(res.Payload.TotalCount == 0) {
+                            // 获取抽奖内容
+                        getChoujiang(); 
+                    }
+                }
+            },
+            error(err) {
+                console.log(err);
+            }
+        })    
+    };
+    function getChoujiang() {
+        var data = {
+                "ActivityGuid": "EAF5199C-43DE-4FF9-8199-8DAC010D5FB7"
+            };
+            $.ajax({
+                url:'https://testshengyaapi.onlyk12.com/ActivityDraw/GetActivityDrawList',
+                data:data,
+                method: "POST",  
+                contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+                success(res) {
+                    console.log(res);
+                },
+                error(err) {
+                    console.log(err);
+                }
+            })
+    }
     //从一个给定的数组arr中,随机返回num个不重复项
             function getArrayItems(arr, num) {
                 //新建一个数组,将传入的数组复制过来,用于运算,而不要直接操作传入的数组;
@@ -114,9 +159,10 @@
                     }
                 },'json');
         })
+        // 停止抽奖
         $('.stop_btn').click(function(){
             $(".stop_btn").css('display','none');
-            $(".cj_btn").css('display','block');
+            $(".jx_btn").css('display','block');
             console.log(res);
             clearInterval(interval);
         });

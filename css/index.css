@@ -263,6 +263,10 @@ border-radius: 30px;
     letter-spacing: 0;
     text-align: center;
     line-height: 48px;
+    height: 48px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
 }
 .tab{
     margin: 10px 190px 0;

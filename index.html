@@ -14,10 +14,13 @@
             <img src="./images/05-baioti.png" alt="">
         </div>
         <div class="jiangpin">
-            <div class="jp_title">我是奖品名称</div> 
-            <div class="jp_box">
-                <img src="./images/03-touxiang.png" alt="">
+            <div class="jiangpinCont">
+                <!-- <div class="jp_title">我是奖品名称</div> 
+                <div class="jp_box">
+                    <img src="./images/03-touxiang.png" alt="">
+                </div> -->
             </div>
+        
             <ul class="toux_list">
                 <!-- <div class="toux_lis">
                     <div class="toux_img"><img src="./images/03-touxiang.png" alt=""></div>
@@ -58,47 +61,20 @@
     <script src="./js/jquery-3.3.1.min.js"></script>
     <script src="./js/quanping.js"></script>
     <script type="text/javascript">
-    getList();
+
     function getList() {
-        var data = {
-                "ActivityGuid": "EAF5199C-43DE-4FF9-8199-8DAC010D5FB7",
-                "Mobile": "",
-                "IsSignIn": "1",
-                "PageIndex": '1',
-                "PageSize": '999'
-            };
-        $.ajax({
-            url:'https://testshengyaapi.onlyk12.com/ActivityEnrollSignIn/GetActivityEnrollSignInList',
-            data:data,
-            method: "POST",  
-            contentType: 'application/x-www-form-urlencoded;charset=utf-8',
-            success(res) {
-                if(res.Result == 200) {
-                    // console.log(res);
-                }
-            },
-            error(err) {
-                console.log(err);
-            }
-        })    
+            
     };
     getChoujiang(); 
     //最小值
-    Array.prototype.min = function() {
-        var min = this[0];
-        var len = this.length;
-        for (var i = 1; i < len; i++){ 
-        if (this[i] < min){ 
-        min = this[i]; 
-        } 
-        } 
-        return min;
-    }
+    
     var zhongjiangInfo = {};
+    var count = 0;
     function getChoujiang() {
         var data = {
                 "ActivityGuid": "EAF5199C-43DE-4FF9-8199-8DAC010D5FB7"
             };
+        var html = '';
             $.ajax({
                 url:'https://testshengyaapi.onlyk12.com/ActivityDraw/GetActivityDrawList',
                 data:data,
@@ -112,9 +88,16 @@
                                 arr.push(e.Sort)
                             }
                         });
-                        
-                        zhongjiangInfo = res.Payload[arr.min()];
-                        console.log(zhongjiangInfo);
+                        arr.sort(function (a, b) {
+                            return a-b;
+                        });
+                        zhongjiangInfo = res.Payload[arr[0]];
+                        count = zhongjiangInfo.Count;
+                        html = '<div class="jp_title">'+zhongjiangInfo.DrawName+'</div>'+ 
+               ' <div class="jp_box">'+
+                    '<img src="'+zhongjiangInfo.ImagePath+'" alt="">'+
+                '</div>';
+                $('.jiangpinCont').html(html);
                     }
                 },
                 error(err) {
@@ -156,33 +139,61 @@
             $(".cj_btn").css('display','none');
             $(".stop_btn").css('display','block');
             $(".toux_list").css('display','block');
-                $.get("data.json",{},function(data){
-                    if(data){
-                            function times(){
-                                var ArrList = data;
-                                 res = getArrayItems(ArrList,3);
-                                str='';
-                                for(o in res){
-                                    num = parseInt(o)+1;
-                                    str+='<div class="toux_lis">'+
-                    '<div class="toux_img"><img src="'+res[o].url+'" alt=""></div>'+
-                    '<div class="toux_name">'+res[o].name+'</div></div>';
-                                }
-                                $(".toux_list").html(str);
-                                return res;
-                            };
-                            interval = setInterval(times,100);      
-                    }else{  
-                        alert('Ajax error!');
-                    }
-                },'json');
+            var data = {
+                "ActivityGuid": "EAF5199C-43DE-4FF9-8199-8DAC010D5FB7",
+                "Mobile": "",
+                "IsSignIn": "1",
+                "PageIndex": '1',
+                "PageSize": '999'
+            };
+            $.ajax({
+                url:'https://testshengyaapi.onlyk12.com/ActivityEnrollSignIn/GetActivityEnrollSignInList',
+                data:data,
+                method: "POST",  
+                contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+                success(res) {
+                    if(res.Result == 200) {
+                        function times() {
+                            arr = getArrayItems(res.Payload.Values,res.Payload.TotalCount-1);
+                            str = '';
+                            arr.forEach(function(e,i){
+                                str+='<div class="toux_lis" id="'+i+'">'+
+                        '<div class="toux_img"><img src="'+e.Avatar+'" alt=""></div>'+
+                        '<div class="toux_name">'+e.NickName+'</div></div>';         
+                            });
+                            $(".toux_list").html(str);
+                            return arr;
+                        }
+                    };
+                    times();
+                    interval = setInterval(times,100);      
+                },
+                error(err) {
+                    console.log(err);
+                }
+            });
         })
         // 停止抽奖
         $('.stop_btn').click(function(){
             $(".stop_btn").css('display','none');
             $(".jx_btn").css('display','block');
-            console.log(res);
+            console.log(count);
+            var out = [];
+            var num = count;
+            while(out.length < num){
+            var temp = (Math.random()*arr.length) >> 0;
+                out.push(arr.splice(temp,1)[0]);
+            }
+            console.log(out);
             clearInterval(interval);
+            str = '';
+            out.forEach(function(e,i){
+                str+='<div class="toux_lis" id="'+i+'">'+
+        '<div class="toux_img"><img src="'+e.Avatar+'" alt=""></div>'+
+        '<div class="toux_name">'+e.NickName+'</div></div>';         
+            });
+            $(".toux_list").html(str);
+            
         });
         // 继续抽奖
         $('.jiangpin').on('click','.jx_btn',function(){

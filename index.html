@@ -62,14 +62,32 @@
     <script src="./js/quanping.js"></script>
     <script type="text/javascript">
 
-    getChoujiang(); 
-    //最小值
-    
+   
+// ActivityGuid=EAF5199C-43DE-4FF9-8199-8DAC010D5FB7
     var zhongjiangInfo = {};
     var count = 0;
+    // 获取参数
+    function getUrlArgObject(){  
+        var args=new Object();  
+        var query=window.location.search.substring(1);//获取查询串  
+        var pairs=query.split(",");//在逗号处断开  
+        for(var i=0;i<pairs.length;i++){  
+            var pos=pairs[i].indexOf('=');//查找name=value  
+            if(pos==-1){//如果没有找到就跳过  
+                continue;  
+            }  
+            var argname=pairs[i].substring(0,pos);//提取name  
+            var value=pairs[i].substring(pos+1);//提取value  
+            args[argname]=unescape(value);//存为属性  
+        }  
+        return args;//返回对象  
+    }  
+// 整理成对象
+    var newObj = getUrlArgObject();
+    getChoujiang(); 
     function getChoujiang() {
         var data = {
-                "ActivityGuid": "EAF5199C-43DE-4FF9-8199-8DAC010D5FB7"
+                "ActivityGuid": newObj.ActivityGuid
             };
         var html = '';
             $.ajax({
@@ -137,7 +155,7 @@
             $(".stop_btn").css('display','block');
             $(".toux_list").css('display','block');
             var data = {
-                "ActivityGuid": "EAF5199C-43DE-4FF9-8199-8DAC010D5FB7",
+                "ActivityGuid": newObj.ActivityGuid,
                 "Mobile": "",
                 "IsSignIn": "1",
                 "PageIndex": '1',

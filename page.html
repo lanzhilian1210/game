@@ -2,51 +2,58 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/index.css">
 </head>
 <body>
-    <div class="page ">
-        <div class="title">
-            <img src="./images/01-liuyanqiang.png" alt="">
-        </div>
+    <div class="page">       
         <div class="left_btn"></div>
         <div class="right_btn"></div>
-        <ul class="msg_cont">
-            
-        </ul>
+        <div class="main">
+	        <div class="title">
+	            <img src="./images/01-liuyanqiang.png" alt="">
+	        </div>
+	        <ul class="msg_cont">
+	            
+	        </ul>
+        </div>
         <!-- mask -->
         <div class="popMask" style="display: none;"></div>
         <div class="mask" style="display: none;">
-            
-            
+            <div class="maskBox">
+            	
+            </div>           
         </div>
         <div class="foot">
-            <div class="foot_bg"></div>
-            <div class="tab">
-                <div class="tab1">
-                    <img src="./images/01-liuyanshangqiang.png" alt="" class="tab_img">
-                    <div class="tab_msg active">留言上墙</div>
-                </div> 
-                <div class="tab2">
-                    <img src="./images/01-lchoujiang.png" alt="" class="tab_img">
-                    <div class="tab_msg">现场抽奖</div>
-                </div> 
-                <div class="tab3">
-                    <img src="./images/01-erweima.png" alt="" class="tab_img">
-                    <div class="tab_msg">二维码</div>
-                </div> 
-                <div class="quanping" onclick="kaishi()">
-                        <img src="./images/01-quanping.png" alt="">
-                    </div>
-            </div>
-
+        	<div class="footBox">
+        		<div class="con">
+		            <div class="tab">
+		                <div class="tab1">
+		                    <img src="./images/01-liuyanshangqiang.png" alt="" class="tab_img">
+		                    <div class="tab_msg active">留言上墙</div>
+		                </div> 
+		                <div class="tab2">
+		                    <img src="./images/01-lchoujiang.png" alt="" class="tab_img">
+		                    <div class="tab_msg">现场抽奖</div>
+		                </div> 
+		                <div class="tab3">
+		                    <img src="./images/01-erweima.png" alt="" class="tab_img">
+		                    <div class="tab_msg">二维码</div>
+		                </div>                
+		            </div>
+		            <div class="quanping" onclick="kaishi()">
+		                <img src="./images/01-quanping.png" alt="">
+		            </div>
+	            </div>
+	            <div class="footHide" onclick="footHide()">隐藏</div>
+			</div>
         </div>
     </div>
     <script src="./js/jquery-3.3.1.min.js"></script>
+	<script src="./js/rootfont.js"></script>
     <script src="./js/quanping.js"></script>
     <script src="./js/data.js"></script>
     <script>
@@ -95,13 +102,14 @@
                     list = res.Payload.Values;
                     res.Payload.Values.forEach(function(e,i){
                         // console.log(e);
-                    html +='<li class="msg_lis">'+
-                                '<div class="lis_bg"></div>'+
-                                '<div class="yuan">'+
-                                    '<img src="'+e.Avatar+'">'+
-                                '</div>'+
-                                '<div class="wx_name">'+e.NickName+'</div>'+
-                                '<div class="wx_cont">'+e.Comment+'</div>'+
+                    html += '<li class="msg_lis">' +
+                            '<div class="yuan">' +
+                            '<img src="' + e.Avatar + '">' +
+                            '</div>' +
+                            '<div class="rt">' +
+                            '<div class="wx_name">' + e.NickName + '</div>' +
+                            '<div class="wx_cont">' + e.Comment + '</div>' +
+                            '</div>'
                             '</li>';
                     });
                     $('.msg_cont').html(html);
@@ -142,7 +150,7 @@
             </div>
             <div class="pop_name">${content.NickName}</div>
             <div class="pop_text">${content.Comment}</div><img src="./images/03-guanbi.png" alt="" class="close">`;
-            $('.mask').html(cont);
+            $('.maskBox').html(cont);
         });
         $('.mask').on('click','.close',function () {
             $('.page').removeClass('pageAc');
@@ -170,6 +178,9 @@
             }
             onOff3 = !onOff3;
           })
+        $(".footHide").click(function(){
+        	$(".footBox .con").slideToggle("slow");
+        });
     </script>
 </body>
 </html>

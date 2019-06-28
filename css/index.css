@@ -1,96 +1,96 @@
+body,html{
+    position: relative;
+    min-height: 100%;
+    height: 56.25vw;
+}
 .page{
-    min-height: 90%;
+	position: relative;
+    height: 100%;
     width: 100%;
     background: url(../images/bg.png) center no-repeat;
-    background-size: cover;
-    padding-top:5%; 
+    background-size: cover;    
     padding-bottom: 5%;
     overflow: hidden;
 }
+.main{
+	position: relative;
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	padding-top:2.5vw; 
+	margin: 0 10.41666vw;
+}
 .title{
-height: 112px;
-text-align: center;
-margin-bottom: 8px;
+	text-align: center;
+	margin-bottom:1.04166vw;
 }
 .title img{
-    height: 100%;
-}
-.msg_cont{
-margin: 20px 200px 0;
+    width:17.5vw;
 }
 .msg_lis{
-    width: 100%;
-    height: 208px;
-    padding-top: 42px;
     position: relative;
-    margin-top: 20px;
-}
-.lis_bg{
+    display: flex;
     width: 100%;
-    height: 250px;
-    opacity: 0.5;
-    background: #FFFFFF;
-    position: absolute;
-    left: 0;
-    top: 0;
-    border-radius: 100px 50px 100px 0;
+    padding:1.875vw 1.5625vw;
+    margin-bottom: 1.04166vw;
+    background: rgba(255,255,255,0.5);
+    border-radius: 5.20833vw 2.60416vw 5.20833vw 0;
 }
 .yuan{
-    height: 139px;
-    width: 139px;
-    opacity: 0.7;
-    display: inline-block;
-    background: #FFFFFF;
-    border-radius: 69.3px;
-    margin-left: 30px;
-    float: left;
+	display: block;
+	height: 7.29166vw;
+    width: 7.29166vw;;
+	padding:0.52083vw;
+    background: rgba(255,255,255,0.6);
+    border-radius: 50%;
+    margin-right:1.5625vw;
 }
 .yuan img{
-    height: 120px;
-    width: 120px;
+	display: block;
+    height: 6.25vw;
+    width: 6.25vw;
+    object-fit: cover;
     border-radius: 50%;
-    margin: 10px;
-    display: inline-block;
-}
-body,html{
-    height: 100%;
 }
 .wx_name{
     font-family: PingFangSC-Medium;
-    font-size: 36px;
+    font-size: 3.6rem;
     color: #FFFFFF;
     letter-spacing: 0;
-    float: left;
-    margin-top: -8px;
-    margin-left: 20px;
+    margin-top: -0.41666vw;
     display: inline-block;
 }
 .wx_cont{
     font-family: PingFangSC-Regular;
-    font-size: 48px;
+    font-size: 4.8rem;
+    width:66.66666vw;
+    margin-top:0.83333vw;
     color: #FFFFFF;
     letter-spacing: 0;
-    line-height: 56px;
-    position: absolute;
-    left: 190px;
-    top: 76px;
+    line-height: 2.91666vw;
     text-overflow: -o-ellipsis-lastline;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     line-clamp: 2;
+    word-wrap:break-word;
     -webkit-box-orient: vertical;
 }
 .mask{
-    margin: 180px 150px 100px;
+	background: #FFFFFF;
+    border-radius: 3vh;
+    margin: 9vw 10.41666vw;
     position: fixed;
     left: 0;
-    top: 0;
-    bottom: 0;
     right: 0;
-    background: #FFFFFF;
-border-radius: 30px;
+    top:50%;
+    transform: translateY(-80%);
+}
+.maskBox {
+	position: relative;
 }
 .pageAc{
     position: fixed;
@@ -105,145 +105,148 @@ border-radius: 30px;
     top: 0;
 }
 .pop_yuan{
-    height: 256px;
-    width: 256px;
-    background: #eee;
-    border-radius: 50%;
-    margin:-128px auto 0;
+	position: absolute;
+	left:50%;
+	top:0;
+	margin-left:-6.25vw;
+	margin-top:-7.5vw;
 }
-.pop_yuan img{
-    height: 230px;
-    width: 230px;
+.pop_yuan img{	
+    height: 11.97916vw;
+    width: 11.97916vw;
+    border: 0.52083vw solid #eee;
+    object-fit: cover;
     border-radius: 50%;
-    margin: 13px;
 }
 .pop_name{
     font-family: PingFangSC-Medium;
-    font-size: 42px;
+    font-size: 2.1vw;
     color: #000;
     letter-spacing: 0;
-    margin: 20px auto;
+    padding-top:6vw;
     text-align: center;
 }
-.pop_text{
+.pop_text{	
     font-family: PingFangSC-Regular;
-    font-size: 43px;
+    font-size: 2.5vw;
     color: #000;
-    height: 300px;
-    line-height: 60px;
-    letter-spacing: 0;
-    text-overflow: -o-ellipsis-lastline;
+    min-height: 300px;
+    line-height: 1.2;
     overflow: auto;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    margin: 0 86px;
+    margin:1.5625vw 0 4.47916vw;
+    padding:0 4.47916vw;
 }
 .pop_text::-webkit-scrollbar {
     display: none;
 }
 .close{
-    height: 80px;
-    width: 80px;
+    height: 4.16666vw;
+    width: 4.16666vw;
     position: absolute;
-    right: -80px;
-    top: 80px;
+    right: -4.16666vw;
+    top: 4.16666vw;
 }
 .left_btn{
-    height: 60px;
-    width: 60px;
+    height: 3.125vw;
+    width: 3.125vw;
     background: url(../images/01-zuojiantou.png) center no-repeat;
     background-size: cover;
     position: absolute;
     top: 50%;
-    left: 2%;
+    margin-top:1.5625vw;
+    left: 3.64583vw;
 }
 .right_btn{
-    height: 60px;
-    width: 60px;
+    height: 3.125vw;
+    width: 3.125vw;
     background: url(../images/01-youjiantou.png) center no-repeat;
     background-size: cover;
     position: absolute;
     top: 50%;
-    right: 2%;
+    margin-top:1.5625vw;
+    right: 3.64583vw;
 }
 .jiangpin{
-    margin: 60px 190px 0;
+    width:100%;
     border-radius: 30px;
     position: relative;
     background: url(../images/05-kuang.png) center no-repeat;
     background-size: cover;
-    padding-top: 22px;
-    height: 788px;
+    padding-top: 1.14vw;
+    min-height: 41.25vw;
 }
 .jp_title{
     text-align: center;
-    height: 78px;
-    font-size: 42px;
-    line-height: 78px;
+    height: 4.06vw;
+    font-size: 4.8rem;
+    line-height: 4.06vw;
 }
 .jp_box{
-    height: 460px;
-    width: 460px;
+    height: 23vw;
+    width: 23vw;
     background: #fff;
     border-radius:30px;
-    margin: 50px auto 0;
+    margin: 2.6vw auto 0;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 .jp_box img{
-    height: 315px;
-    width: 315px;
+    height: 16vw;
+    width: 16vw;
 }
 .cj_btn{
-    width: 399px;
-    height: 87px;
+    width: 20.78125vw;
+    height: 4.53125vw;
     font-family: PingFangSC-Medium;
-    font-size: 48px;
+    font-size: 4.8rem;
     color: #FFFFFF;
     letter-spacing: 0;
-    line-height: 87px;
+    line-height: 4.53125vw;
     text-align: center;
     background: #FFCB07;
-    border-radius: 48.5px;
+    border-radius: 2.52604vw;
    position: absolute;
    left: 50%;
-   bottom: 25px;
-   transform: translateX(-50%);
+   bottom: 1.30208vw;
+   transform:translateX(-50%);
 }
-.stop_btn,.jx_btn{
-    width: 399px;
-    height: 87px;
+.stop_btn,.jx_btn,.over_btn{
+    width: 20.78125vw;
+    height: 4.53125vw;
     font-family: PingFangSC-Medium;
-    font-size: 48px;
+    font-size: 4.8rem;
     color: #FFFFFF;
     letter-spacing: 0;
-    line-height: 87px;
+    line-height: 4.53125vw;
     text-align: center;
     background: #FFCB07;
-    border-radius: 48.5px;
+    border-radius: 2.52604vw;
    position: absolute;
    left: 50%;
-   bottom: 25px;
-   transform: translateX(-50%);
+   bottom: 1.30208vw;
+   transform:translateX(-50%);
    display: none;
 }
+.over_btn{
+    color: #222;
+    background: #ccc !important;
+}
 .toux_list{
-    height: 574px;
-    width: 94%;
-    margin-top: 20px;
-    padding: 0 3%;
+    min-height:29.89vw;
+    width: 100%;
+    margin-top: 1.04vw;
     display: none;
 }
 .toux_lis{
-    width: 192px;
-    margin-left: 80px;
+    width: 10vw;
+    margin-left: 4.166vw;
     float: left;
 
 }
 .toux_img{
-    width: 192px;
-    height: 192px;
+    width: 10vw;
+    height: 10vw;
     display: block;
     background: #fff;
     display: flex;
@@ -251,35 +254,43 @@ border-radius: 30px;
     align-items: center;
 }
 .toux_img img{
-    height: 160px;
-    width: 160px;
+    height: 8.33333vw;
+    width: 8.33333vw;
     border-radius: 50%;
 }
 .toux_name{
-    margin-top: 7px;
+    margin-top: 0.36vw;
     font-family: PingFangSC-Regular;
-    font-size: 34px;
+    font-size: 1.77vw;
     color: #FFFFFF;
     letter-spacing: 0;
     text-align: center;
-    line-height: 48px;
-    height: 48px;
+    line-height: 2.5vw;
+    height: 2.5vw;
     overflow: hidden;
     text-overflow:ellipsis;
     white-space: nowrap;
 }
-.tab{
-    margin: 10px 190px 0;
+.foot .footBox{
+	margin: 0 10.41666vw;
     position: relative;
+}
+.foot .footBox .con {
+	padding:0.625vw 0;   
+    display: flex;
+    align-items: center;
+}
+.foot .con .tab {
+	display: flex;
+	flex: 1;
 }
 .tab1,.tab2,.tab3{
     width: 56px;
-    margin-right: 80px;
-    float: left;
+    margin-right: 3.125vw;	
 }
 .tab_img{
-    height: 40px;
-    width: 40px;
+    height: 2.08333vw;
+    width: 2.08333vw;
     display: block;
     margin: 0 auto;
 }
@@ -291,34 +302,34 @@ border-radius: 30px;
     height: 20px;
     line-height: 20px;
     text-align: center;
-    margin: 10px 0 0;
+    margin: 5px 0 0;
 }
 .active{
     color: #FFCB07;
 }
 .foot{
-    height: 90px;
     width: 100%;
+    background: rgba(0,0,0,0.5);
     position: fixed;
     left: 0;
     bottom: 0;
 }
-.foot_bg{
-    height: 100%;
-    width: 100%;
-    opacity: 0.5;
-background: #000000;
-position: absolute;
-left: 0;
-top: 0;
-}
 .quanping{
-    height: 40px;
-    float: right;
-    width: 40px;
-    margin-top: 20px;
+    height: 2.08333vw;
+    width: 2.08333vw;
 }
 .quanping img{
     width: 100%;
     height: 100%;
+}
+.footHide {
+	overflow: hidden;
+	position: absolute;
+	right:-3.54166vw;
+	top:-2.70833vw;
+	width:2.96875vw;
+	height:2.70833vw;
+	background: url(../images/01-jiantou.png) no-repeat;
+    background-size: cover;
+    text-indent: -999px;
 }

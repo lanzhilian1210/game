@@ -10,45 +10,51 @@
 </head>
 <body>
     <div class="page">
-        <div class="title">
-            <img src="./images/05-baioti.png" alt="">
-        </div>
-        <div class="jiangpin">
-            <div class="jiangpinCont">
-                <!-- <div class="jp_title">我是奖品名称</div> 
-                <div class="jp_box">
-                    <img src="./images/03-touxiang.png" alt="">
-                </div> -->
-            </div>
-        
-            <ul class="toux_list">
-                <!-- <div class="toux_lis">
-                    <div class="toux_img"><img src="./images/03-touxiang.png" alt=""></div>
-                    <div class="toux_name">微信头像</div>
-                </div> -->
-            </ul>
-            <div class="cj_btn">开始抽奖</div>
-            <div class="stop_btn">停止</div>
-            <div class="jx_btn">继续</div>
+    	<div class="main">
+	        <div class="title">
+	            <img src="./images/05-baioti.png" alt="">
+	        </div>
+	        <div class="jiangpin">
+	            <div class="jiangpinCont">
+	                <!-- <div class="jp_title">我是奖品名称</div> 
+	                <div class="jp_box">
+	                    <img src="./images/03-touxiang.png" alt="">
+	                </div> -->
+	            </div>	        
+	            <ul class="toux_list">
+	                <!-- <div class="toux_lis">
+	                    <div class="toux_img"><img src="./images/03-touxiang.png" alt=""></div>
+	                    <div class="toux_name">微信头像</div>
+	                </div> -->
+	            </ul>
+	            <div class="cj_btn">开始抽奖</div>
+	            <div class="stop_btn">停止</div>
+                <div class="jx_btn">继续抽奖</div>
+                <div class="over_btn">抽奖结束</div>
+	        </div>
         </div>
         <div class="foot">
-            <div class="foot_bg"></div>
-            <div class="tab">
-                <div class="tab1">
-                    <img src="./images/05-liuyanshangqiang.png" alt="" class="tab_img">
-                    <div class="tab_msg">留言上墙</div>
-                </div> 
-                <div class="tab2">
-                    <img src="./images/05-lchoujiang.png" alt="" class="tab_img">
-                    <div class="tab_msg active">现场抽奖</div>
-                </div> 
-                <div class="tab3">
-                    <img src="./images/01-erweima.png" alt="" class="tab_img">
-                    <div class="tab_msg">二维码</div>
-                </div> 
-                <div class="quanping" onclick="kaishi()">
-                    <img src="./images/01-quanping.png" alt="">
-                </div>
+        	<div class="footBox">
+	            <div class="con">
+		            <div class="tab">
+		                <div class="tab1">
+		                    <img src="./images/05-liuyanshangqiang.png" alt="" class="tab_img">
+		                    <div class="tab_msg">留言上墙</div>
+		                </div> 
+		                <div class="tab2">
+		                    <img src="./images/05-lchoujiang.png" alt="" class="tab_img">
+		                    <div class="tab_msg active">现场抽奖</div>
+		                </div> 
+		                <div class="tab3">
+		                    <img src="./images/01-erweima.png" alt="" class="tab_img">
+		                    <div class="tab_msg">二维码</div>
+		                </div>               
+		            </div>
+		            <div class="quanping" onclick="kaishi()">
+	                    <img src="./images/01-quanping.png" alt="">
+	                </div>
+	            </div>
+	            <div class="footHide" onclick="footHide()">隐藏</div>
             </div>
         </div>
         <!-- <p class="Title">中奖名单显示</p>
@@ -59,12 +65,14 @@
         <div class="stop" data-id="0">停止</div> -->
     </div>
     <script src="./js/jquery-3.3.1.min.js"></script>
+    <script src="./js/rootfont.js"></script>
     <script src="./js/quanping.js"></script>
     <script type="text/javascript">
 
    
 // ActivityGuid=EAF5199C-43DE-4FF9-8199-8DAC010D5FB7
     var zhongjiangInfo = {};
+    var choujiang_id = '';
     var count = 0;
     // 获取参数
     function getUrlArgObject(){  
@@ -84,6 +92,7 @@
     }  
 // 整理成对象
     var newObj = getUrlArgObject();
+    
     getChoujiang(); 
     function getChoujiang() {
         var data = {
@@ -97,17 +106,28 @@
                 contentType: 'application/x-www-form-urlencoded;charset=utf-8',
                 success(res) {
                     if(res.Result == 200) {
-                        var arr = [];
+                        
+                        var arrData = [];
                         res.Payload.forEach(function(e,i){
                             if(e.StudentList.length == 0) {
-                                arr.push(e.Sort)
+                                arrData.push(e.Sort)
+                            } else {
+                                return;
                             }
                         });
-                        arr.sort(function (a, b) {
+                        arrData.sort(function (a, b) {
                             return a-b;
                         });
-                        zhongjiangInfo = res.Payload[arr[0]];
+                        console.log(arrData);
+                        if(arrData.length == 0) {
+                            zhongjiangInfo = res.Payload[res.Payload.length-1];
+                            return ;
+                        } else {
+                            zhongjiangInfo = res.Payload[arrData[0]];
+                        choujiang_id = zhongjiangInfo.ActivityDrawGuid; //新增抽奖id
                         count = zhongjiangInfo.Count;
+                        }
+                        
                         html = '<div class="jp_title">'+zhongjiangInfo.DrawName+'</div>'+ 
                ' <div class="jp_box">'+
                     '<img src="'+zhongjiangInfo.ImagePath+'" alt="">'+
@@ -177,7 +197,6 @@
                         '<div class="toux_name">'+e.NickName+'</div></div>';         
                             });
                             $(".toux_list").html(str);
-                            return arr;
                         }
                     };
                     times();
@@ -191,23 +210,68 @@
         // 停止抽奖
         $('.stop_btn').click(function(){
             $(".stop_btn").css('display','none');
-            $(".jx_btn").css('display','block');
-            console.log(count);
-            var out = [];
-            var num = count;
-            while(out.length < num){
-            var temp = (Math.random()*arr.length) >> 0;
-                out.push(arr.splice(temp,1)[0]);
-            }
-            console.log(out);
+            $(".jx_btn").css('display','block');                
             clearInterval(interval);
-            str = '';
-            out.forEach(function(e,i){
-                str+='<div class="toux_lis" id="'+i+'">'+
-        '<div class="toux_img"><img src="'+e.Avatar+'" alt=""></div>'+
-        '<div class="toux_name">'+e.NickName+'</div></div>';         
+            var data = {
+                "ActivityDrawGuid": choujiang_id,
+                "Operator": "system",
+            };
+            $.ajax({
+                url:'https://testshengyaapi.onlyk12.com/ActivityDraw/AddActivityDrawResult',
+                data:data,
+                method: "POST",  
+                contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+                success(res) {
+                    if(res.Result == 200) {
+                        var data = {
+                            "ActivityGuid": newObj.ActivityGuid
+                        };
+                        var html = '';
+                        $.ajax({
+                            url:'https://testshengyaapi.onlyk12.com/ActivityDraw/GetActivityDrawList',
+                            data:data,
+                            method: "POST",  
+                            contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+                            success(res) {
+                                if(res.Result == 200) {
+                                    var arrData = [];
+                                    res.Payload.forEach(function(e,i){
+                                        if(e.StudentList.length != 0) {
+                                            arrData.push(e.Sort)
+                                        } else {
+                                            return;
+                                        }
+                                    });
+                                    arrData.sort(function (a, b) {
+                                        return a-b;
+                                    });
+                                    console.log(arrData,arrData[arrData.length-1]);
+                                    console.log(res.Payload[arrData[arrData.length-1]]);
+                                    var out = res.Payload[arrData[arrData.length-1]].StudentList;
+                                    console.log(out);
+                                    out.forEach(function(e,i){
+                                    html+='<div class="toux_lis" id="'+i+'">'+
+                                        '<div class="toux_img"><img src="'+e.Avatar+'" alt=""></div>'+
+                                        '<div class="toux_name">'+e.NickName+'</div></div>';         
+                                    });
+                                    $(".toux_list").html(html);
+                                };
+                                // 抽奖结束
+                                if(arrData.length == res.Payload.length) {
+                                    $(".stop_btn").css('display','none');
+                                    $(".over_btn").css('display','block');
+                                }
+                            },
+                            error(err) {
+                                console.log(err);
+                            }
+                        })
+                    }; 
+                },
+                error(err) {
+                    console.log(err);
+                }
             });
-            $(".toux_list").html(str);
             
         });
         // 继续抽奖
@@ -217,7 +281,7 @@
             $(".stop_btn").css('display','none');
             $(".toux_list").css('display','none');
             $(".jx_btn").css('display','none');
-            getChoujiang(); //继续抽奖
+            getChoujiang();
         });
         // tab
         var onOff = true;
@@ -235,6 +299,9 @@
             }
             onOff3 = !onOff3;
           });
+          $(".footHide").click(function(){
+        	$(".footBox .con").slideToggle("slow");
+        });
     </script>
 </body>
 </html>
